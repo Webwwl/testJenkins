@@ -11,6 +11,8 @@ node {
 	   	stage('项目信息'){
 	   		//这里是构建，你可以调用job入参或者项目配置的参数，比如：
 	   		echo "项目名字 ${PROJECT_CHINESE_NAME}"
+			echo '文件信息'
+			sh 'ls'
 	   		//可以判断
 	   		if (Boolean.valueOf("${IS_USE_CODE_CHECK}")) {
 	   			echo "需要静态代码检查"
