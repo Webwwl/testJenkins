@@ -37,7 +37,7 @@ node {
 		emailext body: "构建项目:${PROJECT_CHINESE_NAME}\r\n构建失败，\r\n错误消息：${e.toString()}", subject: '构建结果通知【失败】', to: "${EMAIL}"
 	} finally{
 		// 清空工作空间
-        cleanWs notFailBuild: true
+        // cleanWs notFailBuild: true
 	}
    	
    
