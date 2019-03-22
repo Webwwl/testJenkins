@@ -17,15 +17,19 @@ node {
 	   		} else {
 	   			echo "不需要静态代码检查"
 	   		}
+			if ("${params.COMMIID}" != "") {
+				sh "git checkout ${params.COMMITID}"
+				echo "checkout to ${params.COMMITID}"
+			}
 	   	}
-	   	stage('打包'){//这个演示的Android的项目，实际使用中，请根据自己的产物确定
-	       	sh 'sudo cnpm install'
-            sh 'sudo cnpm run build'
+	   	stage("打包"){//这个演示的Android的项目，实际使用中，请根据自己的产物确定
+	       	sh "cnpm install"
+            sh "cnpm run build"
 	   	}
-        stage('发布') {
-            sh "cp -r ./dist/* /home/ubuntu/www.wuwenliang.xyz/source/project/test-jenkins"
+        stage("发布") {
+            sh "cp -r ./dist/* ${params.TARGETDIR}"
         }
-	   	stage('通知负责人'){
+	   	stage("通知负责人"){
 	   		emailext body: "构建项目:${PROJECT_CHINESE_NAME}\r\n构建完成\r\n 线上地址：https://www.wuwenliang.xyz/source/project/test-jenkins/index.html", subject: '构建结果通知【成功】', to: "${EMAIL}"
 	   	}
 	} catch (e) {
