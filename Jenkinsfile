@@ -8,11 +8,13 @@ node {
             echo 'clone代码成功' 
 	       	loadProjectConfig();
 	  	}
-	   	stage('项目信息'){
+		stage('项目信息'){
 	   		//这里是构建，你可以调用job入参或者项目配置的参数，比如：
 	   		echo "项目名字 ${PROJECT_CHINESE_NAME}"
 			echo '文件信息'
 			sh 'ls -R config'
+			echo '当前用户 - path'
+			sh "whoami && echo $PATH"
 	   		//可以判断
 	   		if (Boolean.valueOf("${IS_USE_CODE_CHECK}")) {
 	   			echo "需要静态代码检查"
@@ -24,10 +26,13 @@ node {
 				echo "checkout to ${params.COMMITID}"
 			}
 	   	}
-	   	stage("打包"){//这个演示的Android的项目，实际使用中，请根据自己的产物确定
+	   	stage("打包"){
 	       	// sh "cnpm install"
             // sh "cnpm run build"
-			sh "config/deploy/test.sh"
+			echo '当前位置'
+			sh 'pwd'
+			sh 'ls -al /var/lib/jenkins/workspace/paymentCode/config/deploy/test.sh'
+			sh "/var/lib/jenkins/workspace/paymentCode/config/deploy/test.sh"
 	   	}
         stage("发布") {
             sh "cp -r ./dist/* ${params.TARGETDIR}"
