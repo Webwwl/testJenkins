@@ -23,8 +23,9 @@ node {
 			}
 	   	}
 	   	stage("打包"){//这个演示的Android的项目，实际使用中，请根据自己的产物确定
-	       	sh "cnpm install"
-            sh "cnpm run build"
+	       	// sh "cnpm install"
+            // sh "cnpm run build"
+			sh "./config/deploy/test.sh"
 	   	}
         stage("发布") {
             sh "cp -r ./dist/* ${params.TARGETDIR}"
