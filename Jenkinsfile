@@ -32,7 +32,7 @@ node {
 			echo '当前位置'
 			sh 'pwd'
 			sh 'ls -al /var/lib/jenkins/workspace/paymentCode/config/deploy/test.sh'
-			sh "/var/lib/jenkins/workspace/paymentCode/config/deploy/test.sh"
+			sh "./config/deploy/test.sh"
 	   	}
         stage("发布") {
             sh "cp -r ./dist/* ${params.TARGETDIR}"

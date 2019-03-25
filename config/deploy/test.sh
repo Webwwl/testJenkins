@@ -9,10 +9,10 @@ path="/opt/servplat/testJenkins"
 
 rm -rf ./dist
 
-npm install
+cnpm install
 echo "cnpm install success"
 
-npm run build
+cnpm run build
 echo "build success"
 
 rsync -rcv dist/*  $host:${path}
